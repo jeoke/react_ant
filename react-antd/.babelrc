@@ -1,0 +1,26 @@
+﻿{
+  "presets": [
+    [
+      "es2015",
+      {
+        "modules": false
+      }
+    ],
+    "react",
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-runtime",
+    "transform-class-properties",
+    "transform-es2015-classes",
+    ["import",  {
+    "libraryName": "antd",
+    "libraryDirectory": "lib",
+    "style": true
+    },{
+    "libraryName": "echarts",
+    "libraryDirectory": "lib",
+    "style": true
+    }]
+  ]
+}
