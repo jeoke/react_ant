@@ -1,0 +1,37 @@
+.container{
+	height: 510px;
+	overflow: hidden;
+}
+.container div{
+    font-family:Lucida Bright,cursive,serif;
+    font-size: 1rem;
+    height: 230px;
+    width: 340px;
+    border: 1px solid #000;
+    margin-left: 40px;
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+.container div:nth-child(1),.container div:nth-child(3){
+	float: right;
+	margin-right: 50px;
+}
+.container div:nth-child(1){
+	margin-right: 80px;
+}
+.container div:nth-child(2){
+    margin-left: 200px;
+}
+
+.container div:nth-child(5){
+	position: absolute;
+    top: 59%;
+    left: 41.422%;
+    text-align: center;
+    line-height: 45px;
+}
+
+.container li{
+	list-style: none;
+}

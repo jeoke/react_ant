@@ -1,30 +1,31 @@
 import React from 'react';
 import '../styles/register.css';
+import axios from 'axios';
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
 const residences = [{
-  value: 'zhejiang',
-  label: 'Zhejiang',
+  value: '浙江',
+  label: '浙江',
   children: [{
-    value: 'hangzhou',
-    label: 'Hangzhou',
+    value: '杭州',
+    label: '杭州',
     children: [{
-      value: 'xihu',
-      label: 'West Lake',
+      value: '西湖',
+      label: '西湖',
     }],
   }],
 }, {
-  value: 'jiangsu',
-  label: 'Jiangsu',
+  value: '江苏',
+  label: '江苏',
   children: [{
-    value: 'nanjing',
-    label: 'Nanjing',
+    value: '南京',
+    label: '南京',
     children: [{
-      value: 'zhonghuamen',
-      label: 'Zhong Hua Men',
+      value: '中华门',
+      label: '中华门',
     }],
   }],
 }];
@@ -36,9 +37,30 @@ class RegistrationForm extends React.Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
+    const { getFieldValue } = this.props.form; 
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        const email = getFieldValue('email');
+        const password = getFieldValue('password');
+        const username = getFieldValue('nickname');
+        const residence = getFieldValue('residence');
+        const phone = getFieldValue('phone');
+        const website = getFieldValue('website');
+        const agreement = getFieldValue('agreement');
+        console.log(residence);
+        axios.post('/register',{
+          email:email,
+          password:password,
+          username:username,
+          residence:residence,
+          phone:phone,
+          website:website,
+          agreement:agreement
+        }).then(function(res) {
+          if(res.data){
+          window.location.href  = 'http://localhost:3000';
+        }
+        })
       }
     });
   }
@@ -175,7 +197,7 @@ class RegistrationForm extends React.Component {
           label="Habitual Residence"
         >
           {getFieldDecorator('residence', {
-            initialValue: ['zhejiang', 'hangzhou', 'xihu'],
+            initialValue: ['浙江', '杭州', '西湖'],
             rules: [{ type: 'array', required: true, message: 'Please select your habitual residence!' }],
           })(
             <Cascader options={residences} />
@@ -186,7 +208,7 @@ class RegistrationForm extends React.Component {
           label="Phone Number"
         >
           {getFieldDecorator('phone', {
-            rules: [{ required: true, message: 'Please input your phone number!' }],
+            rules: [{ required: true, pattern:/^1\d{10}$/, message: 'Please input your phone number!' }],
           })(
             <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
           )}
@@ -206,24 +228,6 @@ class RegistrationForm extends React.Component {
               <Input />
             </AutoComplete>
           )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Captcha"
-          extra="We must make sure that your are a human."
-        >
-          <Row gutter={8}>
-            <Col span={12}>
-              {getFieldDecorator('captcha', {
-                rules: [{ required: true, message: 'Please input the captcha you got!' }],
-              })(
-                <Input />
-              )}
-            </Col>
-            <Col span={12}>
-              <Button>Get captcha</Button>
-            </Col>
-          </Row>
         </FormItem>
         <FormItem {...tailFormItemLayout}>
           {getFieldDecorator('agreement', {

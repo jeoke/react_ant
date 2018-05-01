@@ -1,0 +1,11 @@
+.peotry{
+	font-size: 1.1rem;
+	padding: 20px;
+    width: 500px;
+    height: 510px;
+    margin: 0 auto;
+    font-family: cursive;
+    border: 1px solid #000;
+    border-radius: 5px;
+    overflow: auto;
+}

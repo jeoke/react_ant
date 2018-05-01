@@ -1,0 +1,17 @@
+._active{
+	display: block;
+	position: absolute;
+	left: 40%;
+	width: 440px;
+}
+._hidden{
+	display: none;
+}
+.avatar-uploader > .ant-upload {
+  width: 128px;
+  height: 114px;
+}
+.ant-upload img {
+  width: 128px;
+  height: 114px;
+}

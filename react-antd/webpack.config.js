@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+//const { setup } = require('webpack-dev-server/lib/Server');
 
 
 module.exports =  {
@@ -18,7 +19,12 @@ module.exports =  {
              test:/\.(css|less)$/,
              use: ['style-loader','css-loader', 'postcss-loader',
              { loader:'less-loader', options: {
-                javascriptEnabled: true
+                javascriptEnabled: true,
+                modifyVars:{
+                                "primary-color":"#09283B",
+                                "layout-header-background":"#09283B",
+                                "layout-body-background":"#09283B"
+                            }
              }}
             ]
           },

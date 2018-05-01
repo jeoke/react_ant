@@ -1,19 +1,51 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom'
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox , message } from 'antd';
 import '../styles/login.css';
+import axios from 'axios';
+import '../helper/cookie.js';
 const FormItem = Form.Item;
 class NormalLoginForm extends React.Component {
  
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);   //验证表单
+   handleSubmit = (e) => {
+     e.preventDefault();
+     const { getFieldValue } = this.props.form; 
+     this.props.form.validateFields((err, values) => {
+       if (!err) {
+         const user = getFieldValue('userName');
+         const password = getFieldValue('password'); 
+         axios.post('/signup',{
+             user:user,
+             password:password
+         }).then(function(res) {
+           if(typeof res.data === 'object'){
+              if (getFieldValue('remember')) {
+                 cookie.set('username',user,{
+                    maxAge: 3001
+                 });
+                 cookie.set('password',password,{
+                    maxAge: 3001
+                 });
+              }
+               window.location.href = 'http://localhost:3000/api';
+           }else{
+            message.error(res.data);
+           }
+         })
+       }
+       });
+   }
+ 
+  componentDidMount() {
+      const { setFieldsValue } = this.props.form; 
+      if(document.cookie){
+          setFieldsValue({
+            'userName': cookie.getCookie('username'),
+            'password': cookie.getCookie('password')
+          })
       }
-    });
   }
-  
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -40,12 +72,13 @@ class NormalLoginForm extends React.Component {
             <Checkbox>记住我</Checkbox>
           )}
           <a className="login-form-forgot" href="">忘记密码</a>
-          <Link to='/app/'><Button type="primary" htmlType="submit" className="login-form-button">
+         <Button type="primary" htmlType="submit" className="login-form-button">
             登录
-          </Button></Link>
+          </Button>
           <Link to='/register'><Button type="primary" htmlType="submit" className="login-form-button">
             注册
-          </Button></Link>
+            </Button>
+          </Link>
         </FormItem>
       </Form>
     );

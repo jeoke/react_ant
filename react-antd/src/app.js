@@ -21,10 +21,10 @@ class App extends React.Component {
 		return (
 			<BrowserRouter>
 			<Switch>
-			 <Route exact path='/app' render={() => <Redirect to='/app/contenthtml'/>}/>
-			 <Route  path='/app' component={Layout}/>
-			 <Route  path='/' component={Login} />
-			 <Route  path='/register' component={Register} />
+			 <Route exact path='/' component={Login} />
+			 <Route exact path='/register' component={Register} />
+			 <Route exact path='/api' render={() => <Redirect to='/api/ContentHtml'/>}/>
+			 <Route  path='/api' component={Layout}/>
 			</Switch>
 			</BrowserRouter>
 		);

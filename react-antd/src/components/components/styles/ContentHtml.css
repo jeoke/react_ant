@@ -1,0 +1,9 @@
+.htmlInfo:after{
+    content: '';
+    clear: both;
+    display: block;
+    height: 0;
+}
+.htmlInfo{
+	zoom:1;
+}
